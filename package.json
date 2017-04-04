@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "big-integer": "^1.6.19",
+    "express": "^4.15.2",
+    "tough-cookie": "^2.3.2"
+  },
+  "name": "netease-music-api-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "big-integer": "^1.6.19",
+    "express": "^4.15.2",
+    "tough-cookie": "^2.3.2"
+  },
+  "author": "Eason",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": ""
+}
