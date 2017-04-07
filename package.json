@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "big-integer": "^1.6.19",
+    "cors": "^2.8.3",
     "express": "^4.15.2",
     "tough-cookie": "^2.3.2"
   },
@@ -12,12 +13,11 @@
     "express": "^4.15.2",
     "tough-cookie": "^2.3.2"
   },
-  "author": "Eason",
+  "author": "",
   "scripts": {
     "start": "node app.js",
     "dev": "node app.js"
   },
-  "author": "",
   "license": "MIT",
   "description": ""
 }

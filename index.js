@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var crypto = require('crypto');
 var { Cookie } = require('tough-cookie');
+const cors = require('cors');
 const { createRequest, createWebAPIRequest, id2Url } = require('./utils');
 
 var dir = "/v1"
@@ -9,8 +10,20 @@ var dir = "/v1"
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 
-module.exports = function createServer() {
+module.exports = function createServer(options = {}) {
+  const { whitelist = [] } = options;
+
+  const corsOptions = function (req, cb) {
+    const corsOption = { origin: false };
+    if (whitelist.indexOf('*') !== -1 || whitelist.indexOf(req.header('Origin')) !== -1) {
+      corsOption.origin = true;
+    }
+    cb(null, corsOptions);
+  };
+
   var app = express();
+
+  app.use(cors(corsOptions));
 
   app.get(dir + '/login/cellphone', function(request, response) {
     var phone = request.query.phone;
