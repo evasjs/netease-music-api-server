@@ -1,3 +1,3 @@
-const createServer = require('./index');
+const createServer = require('./lib');
 
 createServer();
