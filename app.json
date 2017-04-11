@@ -1,0 +1,8 @@
+{
+  "name": "Netease Music Api Server",
+  "description": "A barebones Node.js app using Express ",
+  "repository": "https://github.com/whatwewant/music-server.git",
+  "logo": "",
+  "keywords": ["node", "express", "static"],
+  "image": ""
+}
