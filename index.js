@@ -3,7 +3,7 @@
 * @Date:   2017-04-12T07:45:29+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-05-25T21:46:41+08:00
+* @Last modified time: 2017-05-25T21:49:00+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -15,7 +15,7 @@ const routes = require('./routes');
 
 const app = Eva({
   server: {
-    HOST: 'localhost',
+    HOST: '0.0.0.0',
     PORT: process.env.PORT || 5000
   },
   db: null,
