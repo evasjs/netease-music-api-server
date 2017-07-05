@@ -3,8 +3,8 @@
     "node": "7.6.0"
   },
   "name": "netease-music-api-server",
-  "version": "1.0.2",
-  "main": "index.js",
+  "version": "1.0.3",
+  "main": "lib/index.js",
   "dependencies": {
     "big-integer": "^1.6.19",
     "cors": "^2.8.3",
