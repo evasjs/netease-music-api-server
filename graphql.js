@@ -9,10 +9,22 @@ module.exports = {
   schemas: `
     scalar JSON
 
+    # @TODO
+    # type Music {
+    #  url: JSON
+    #  detail: JSON
+    # }
+    # music(id: Int!, br: Int = 128000): Music
+
     type Query {
       common(path: String!): JSON
+      
+      music: Music
+    }
     
-      music(id: Int!, type: String = "url", br: Int = 128000): JSON
+    type Music {
+      url(id: Int!, br: Int = 128000): JSON
+      detail(id: Int!): JSON
     }
   `,
   resolvers: {
@@ -28,15 +40,15 @@ module.exports = {
       const json = await res.json();
       return json;
     },
-    async music({ id, type, br }) {
-      if (!['url', 'detail'].includes(type)) {
-        return {
-          code: 0X0002,
-          msg: 'invalid type',
-        };
-      }
-      const res = await fetch(`${prefix}/music/${type}?id=${id}&br=${br}`)
-      return res.json();
+    music: {
+      async url({ id, br }) {
+        const res = await fetch(`${prefix}/music/url?id=${id}&br=${br}`)
+        return res.json();
+      },
+      async detail({ id }) {
+        const res = await fetch(`${prefix}/music/detail?id=${id}`)
+        return res.json();
+      },
     },
   },
   types: {
