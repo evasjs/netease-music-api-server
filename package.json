@@ -3,20 +3,27 @@
     "node": "7.6.0"
   },
   "name": "netease-music-api-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/index.js",
   "dependencies": {
     "big-integer": "^1.6.19",
     "cors": "^2.8.3",
     "eva-server": "^0.0.28",
     "express": "^4.15.2",
+    "express-graphql": "^0.6.6",
+    "graphql": "^0.10.3",
+    "graphql-tools": "^1.1.0",
+    "node-fetch": "^1.7.1",
     "tough-cookie": "^2.3.2"
   },
   "author": "",
   "scripts": {
     "start": "node index.js",
-    "dev": "node index.js"
+    "dev": "nodemon index.js"
   },
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }

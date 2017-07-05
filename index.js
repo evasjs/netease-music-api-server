@@ -9,9 +9,13 @@
 */
 
 const Eva = require('eva-server');
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+const { makeExecutableSchema } = require('graphql-tools');
 
 const handlers = require('./handlers');
 const routes = require('./routes');
+const { schemas, resolvers, types } = require('./graphql');
 
 const app = Eva({
   server: {
@@ -26,6 +30,13 @@ app.register({
   routes,
   handlers,
 });
+
+app._instance.use('/graphql', graphqlHTTP({
+  // schema: buildSchema(schemas),
+  schema: makeExecutableSchema({ typeDefs: schemas, resolvers: types }),
+  rootValue: resolvers,
+  graphiql: true,
+}));
 
 app.start();
 
