@@ -13,12 +13,13 @@ module.exports = {
   `,
   resolvers: {
     async common({ path }) {
-      if (!(path in api)) {
+      if (!(path.split('?')[0] in api)) {
         return {
           code: -1,
           msg: 'invalid services',
         };
       }
+
       const res = await fetch(`http://127.0.0.1:${process.env.PORT || 5000}/v1${path}`);
       const json = await res.json();
       return json;
