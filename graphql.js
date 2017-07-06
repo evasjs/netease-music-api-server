@@ -14,18 +14,18 @@ module.exports = {
     #  url: JSON
     #  detail: JSON
     # }
-    # music(id: Int!, br: Int = 128000): Music
-
-    type Query {
-      common(path: String!): JSON
-      
-      music: Music
-    }
-    
     type Music {
       url(id: Int!, br: Int = 128000): JSON
       detail(id: Int!): JSON
     }
+
+    type Query {
+      common(path: String!): JSON
+      
+      # music(id: Int!, br: Int = 128000): Music
+      music: Music
+    }
+    
   `,
   resolvers: {
     async common({ path }) {
@@ -40,6 +40,14 @@ module.exports = {
       const json = await res.json();
       return json;
     },
+    /*
+    music: async ({ id, br }, ...others) => {
+      return {
+        url: await fetch(`${prefix}/music/url?id=${id}&br=${br}`).then(res => res.json()),
+        detail: await fetch(`${prefix}/music/detail?id=${id}`).then(res => res.json()),
+      };
+    },
+    */
     music: {
       async url({ id, br }) {
         const res = await fetch(`${prefix}/music/url?id=${id}&br=${br}`)
