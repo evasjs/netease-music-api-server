@@ -33,6 +33,15 @@ module.exports = {
       suggest: JSON
     }
 
+    # 3.4 Top Type
+    type Top {
+      artist: JSON
+      songs: JSON
+      album: JSON
+      mv: JSON
+      playlist: JSON
+    }
+
     #type Music {
     #  url(
     #    # music id
@@ -63,6 +72,9 @@ module.exports = {
 
       # 2.4 Search
       search(k: String!): Search
+
+      # 2.5 Top
+      top(offset: Int = 0, limit: Int = 10): Top
     }
     
   `,
@@ -125,6 +137,7 @@ module.exports = {
       banner: async () => getJSON('/banner'),
       playlist: (_, args) => args,
       search: (_, args) => args,
+      top: (_, args) => args,
       // (_, { k }) => getJSON(`/search?keywords=${k}`),
     },
     Music: {
@@ -144,6 +157,13 @@ module.exports = {
       single: async ({ k }) => getJSON(`/search?keywords=${encodeURIComponent(k)}`),
       multi: async ({ k }) => getJSON(`/search/multimatch?keywords=${encodeURIComponent(k)}`),
       suggest: async ({ k }) => getJSON(`/search/suggest?keywords=${encodeURIComponent(k)}`),
+    },
+    Top: {
+      artist: async ({ offset, limit }) => getJSON(`/top/artist?offset=${offset}&limit=${limit}`),
+      songs: async ({ offset, limit }) => getJSON(`/top/songs?offset=${offset}&limit=${limit}`),
+      album: async ({ offset, limit, type }) => getJSON(`/top/album?offset=${offset}&limit=${limit}&type=${type}`),
+      mv: async ({ offset, limit, type }) => getJSON(`/top/mv?offset=${offset}&limit=${limit}&${type}`),
+      playlist: async ({ offset, limit }) => getJSON(`/top/playlist?offset=${offset}&limit=${limit}`),
     },
 
     // Type
