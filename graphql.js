@@ -17,6 +17,7 @@ module.exports = {
     type Music {
       url: JSON
       detail: JSON
+      lyric: JSON
     }
 
     # 3.2 Playlist Type
@@ -133,6 +134,7 @@ module.exports = {
       async detail({ id }) {
         return getJSON(`/music/detail?id=${id}`)
       },
+      lyric: async ({ id }) => getJSON(`/lyric?id=${id}`),
     },
     Playlist: {
       catlist: async () => getJSON(`/playlist/catlist`),
