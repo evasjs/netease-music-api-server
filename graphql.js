@@ -5,6 +5,10 @@ const api = require('./lib')();
 
 const prefix = `http://127.0.0.1:${process.env.PORT || 5000}/v1`;
 
+function getJSON(path) {
+  return fetch(`${prefix}${path}`).then(res => res.json());
+}
+
 module.exports = {
   schemas: `
     scalar JSON
@@ -106,21 +110,19 @@ module.exports = {
       music: (_, args) => {
         return args;
       },
-      banner: async () => fetch(`${prefix}/banner`).then(res => res.json()),
+      banner: async () => getJSON('/banner'),
       playlist: (_, args) => args,
     },
     Music: {
       async url({ id, br }) {
-        const res = await fetch(`${prefix}/music/url?id=${id}&br=${br}`)
-        return res.json();
+        return getJSON(`/music/url?id=${id}&br=${br}`)
       },
       async detail({ id }) {
-        const res = await fetch(`${prefix}/music/detail?id=${id}`)
-        return res.json();
+        return getJSON(`/music/detail?id=${id}`)
       },
     },
     Playlist: {
-      catlist: async () => fetch(`${prefix}/playlist/catlist`).then(res => res.json()),
+      catlist: async () => getJSON(`/playlist/catlist`),
     },
     // Type
     JSON: new GraphQLScalarType({
