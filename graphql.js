@@ -29,6 +29,7 @@ module.exports = {
     type Search {
       single: JSON
       multi: JSON
+      suggest: JSON
     }
 
     #type Music {
@@ -140,6 +141,7 @@ module.exports = {
     Search: {
       single: async ({ k }) => getJSON(`/search?keywords=${encodeURIComponent(k)}`),
       multi: async ({ k }) => getJSON(`/search/multimatch?keywords=${encodeURIComponent(k)}`),
+      suggest: async ({ k }) => getJSON(`/search/suggest?keywords=${encodeURIComponent(k)}`),
     },
 
     // Type
