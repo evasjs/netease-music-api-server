@@ -22,6 +22,7 @@ module.exports = {
     # 3.2 Playlist Type
     type Playlist {
       catlist: JSON
+      hot: JSON
     }
 
     #type Music {
@@ -123,6 +124,7 @@ module.exports = {
     },
     Playlist: {
       catlist: async () => getJSON(`/playlist/catlist`),
+      hot: async () => getJSON('/playlist/hot'),
     },
     // Type
     JSON: new GraphQLScalarType({
