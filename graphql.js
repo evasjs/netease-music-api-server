@@ -9,11 +9,17 @@ module.exports = {
   schemas: `
     scalar JSON
 
-    # Music Type
+    # 3.1 Music Type
     type Music {
       url: JSON
       detail: JSON
     }
+
+    # 3.2 Playlist Type
+    type Playlist {
+      catlist: JSON
+    }
+
     #type Music {
     #  url(
     #    # music id
@@ -40,7 +46,7 @@ module.exports = {
       banner: JSON
 
       # 2.3 Playlist
-      playlist: JSON
+      playlist: Playlist
     }
     
   `,
