@@ -107,6 +107,7 @@ module.exports = {
         return args;
       },
       banner: async () => fetch(`${prefix}/banner`).then(res => res.json()),
+      playlist: (_, args) => args,
     },
     Music: {
       async url({ id, br }) {
@@ -118,6 +119,10 @@ module.exports = {
         return res.json();
       },
     },
+    Playlist: {
+      catlist: async () => fetch(`${prefix}/playlist/catlist`).then(res => res.json()),
+    },
+    // Type
     JSON: new GraphQLScalarType({
       name: 'JSON',
       description: 'Extend JSON Type',
