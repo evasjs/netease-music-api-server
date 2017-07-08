@@ -42,6 +42,15 @@ module.exports = {
       playlist: JSON
     }
 
+    # 3.5 Artist Type
+    type Artist {
+      person: JSON
+      description: JSON
+      album: JSON
+      mv: JSON
+      simi: JSON
+    }
+
     #type Music {
     #  url(
     #    # music id
@@ -75,6 +84,9 @@ module.exports = {
 
       # 2.5 Top
       top(offset: Int = 0, limit: Int = 10): Top
+
+      # 2.6 Artist
+      artist(id: Int!, offset: Int = 0, limit: Int = 10): Artist
     }
     
   `,
@@ -138,6 +150,7 @@ module.exports = {
       playlist: (_, args) => args,
       search: (_, args) => args,
       top: (_, args) => args,
+      artist: (_, args) => args,
       // (_, { k }) => getJSON(`/search?keywords=${k}`),
     },
     Music: {
@@ -164,6 +177,13 @@ module.exports = {
       album: async ({ offset, limit, type }) => getJSON(`/top/album?offset=${offset}&limit=${limit}&type=${type}`),
       mv: async ({ offset, limit, type }) => getJSON(`/top/mv?offset=${offset}&limit=${limit}&${type}`),
       playlist: async ({ offset, limit }) => getJSON(`/top/playlist?offset=${offset}&limit=${limit}`),
+    },
+    Artist: {
+      person: async ({ id }) => getJSON(`/artist?id=${id}`),
+      description: async ({ id }) => getJSON(`/artist/desc?id=${id}`),
+      album: async ({ id, offset, limit }) => getJSON(`/artist/album?id=${id}&offset=${offset}&limit=${limit}`),
+      mv: async ({ id, offset, limit }) => getJSON(`/artist/mv?id=${id}&offset=${offset}&limit=${limit}`),
+      simi: async ({ id, offset, limit }) => getJSON(`/artist/simi?id=${id}`),
     },
 
     // Type
