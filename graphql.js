@@ -52,6 +52,9 @@ module.exports = {
 
       # 2.3 Playlist
       playlist: Playlist
+
+      # 2.4 Search
+      search(k: String!): JSON
     }
     
   `,
@@ -113,6 +116,7 @@ module.exports = {
       },
       banner: async () => getJSON('/banner'),
       playlist: (_, args) => args,
+      search: (_, { k }) => getJSON(`/search?keywords=${k}`),
     },
     Music: {
       async url({ id, br }) {
