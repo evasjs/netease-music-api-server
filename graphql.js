@@ -10,24 +10,37 @@ module.exports = {
     scalar JSON
 
     # @TODO
-    # type Music {
-    #  url: JSON
-    #  detail: JSON
-    # }
     type Music {
-      url(id: Int!, br: Int = 128000): JSON
-      detail(id: Int!): JSON
+      url: JSON
+      detail: JSON
     }
+    #type Music {
+    #  url(
+    #    # music id
+    #    id: Int!,
+
+        # music br
+    #    br: Int = 128000
+    #  ): JSON
+
+    #  detail(
+        # music id
+    #    id: Int!
+    #  ): JSON
+    # }
 
     type Query {
+      # Proxy restful api
       common(path: String!): JSON
       
-      # music(id: Int!, br: Int = 128000): Music
-      music: Music
+      music(id: Int!, br: Int = 128000): Music
+      # music: Music
+
     }
     
   `,
   resolvers: {
+    /*
     async common({ path }) {
       if (!(path.split('?')[0] in api)) {
         return {
@@ -40,6 +53,7 @@ module.exports = {
       const json = await res.json();
       return json;
     },
+    */
     /*
     music: async ({ id, br }, ...others) => {
       return {
@@ -48,6 +62,7 @@ module.exports = {
       };
     },
     */
+    /*
     music: {
       async url({ id, br }) {
         const res = await fetch(`${prefix}/music/url?id=${id}&br=${br}`)
@@ -58,8 +73,39 @@ module.exports = {
         return res.json();
       },
     },
+    */
+    //music(args) {
+    //  return Object.assign({}, args);
+    //},
   },
   types: {
+    Query: {
+      async common({ path }) {
+        if (!(path.split('?')[0] in api)) {
+          return {
+            code: 0X0001,
+            msg: 'invalid services',
+          };
+        }
+
+        const res = await fetch(`${prefix}${path}`);
+        const json = await res.json();
+        return json;
+      },
+      music: (_, args) => {
+        return args;
+      },
+    },
+    Music: {
+      async url({ id, br }) {
+        const res = await fetch(`${prefix}/music/url?id=${id}&br=${br}`)
+        return res.json();
+      },
+      async detail({ id }) {
+        const res = await fetch(`${prefix}/music/detail?id=${id}`)
+        return res.json();
+      },
+    },
     JSON: new GraphQLScalarType({
       name: 'JSON',
       description: 'Extend JSON Type',
