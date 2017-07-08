@@ -9,7 +9,7 @@ module.exports = {
   schemas: `
     scalar JSON
 
-    # @TODO
+    # Music Type
     type Music {
       url: JSON
       detail: JSON
@@ -18,7 +18,6 @@ module.exports = {
     #  url(
     #    # music id
     #    id: Int!,
-
         # music br
     #    br: Int = 128000
     #  ): JSON
@@ -30,12 +29,18 @@ module.exports = {
     # }
 
     type Query {
-      # Proxy restful api
+      # 1 Proxy restful api
       common(path: String!): JSON
       
-      music(id: Int!, br: Int = 128000): Music
       # music: Music
+      # 2.1 Music (url, detail)
+      music(id: Int!, br: Int = 128000): Music
 
+      # 2.2 Banner
+      banner: JSON
+
+      # 2.3 Playlist
+      playlist: JSON
     }
     
   `,
@@ -95,6 +100,7 @@ module.exports = {
       music: (_, args) => {
         return args;
       },
+      banner: async () => fetch(`${prefix}/banner`).then(res => res.json()),
     },
     Music: {
       async url({ id, br }) {
