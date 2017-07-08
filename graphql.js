@@ -25,6 +25,12 @@ module.exports = {
       hot: JSON
     }
 
+    # 3.3 Search Type
+    type Search {
+      single: JSON
+      multi: JSON
+    }
+
     #type Music {
     #  url(
     #    # music id
@@ -54,7 +60,7 @@ module.exports = {
       playlist: Playlist
 
       # 2.4 Search
-      search(k: String!): JSON
+      search(k: String!): Search
     }
     
   `,
@@ -116,7 +122,8 @@ module.exports = {
       },
       banner: async () => getJSON('/banner'),
       playlist: (_, args) => args,
-      search: (_, { k }) => getJSON(`/search?keywords=${k}`),
+      search: (_, args) => args,
+      // (_, { k }) => getJSON(`/search?keywords=${k}`),
     },
     Music: {
       async url({ id, br }) {
@@ -130,6 +137,11 @@ module.exports = {
       catlist: async () => getJSON(`/playlist/catlist`),
       hot: async () => getJSON('/playlist/hot'),
     },
+    Search: {
+      single: async ({ k }) => getJSON(`/search?keywords=${encodeURIComponent(k)}`),
+      multi: async ({ k }) => getJSON(`/search/multimatch?keywords=${encodeURIComponent(k)}`),
+    },
+
     // Type
     JSON: new GraphQLScalarType({
       name: 'JSON',
