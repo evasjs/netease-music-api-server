@@ -51,6 +51,13 @@ module.exports = {
       simi: JSON
     }
 
+    # 3.6 MV Type
+    type Mv {
+      single: JSON
+      simi: JSON
+      url: JSON
+    }
+
     #type Music {
     #  url(
     #    # music id
@@ -87,6 +94,9 @@ module.exports = {
 
       # 2.6 Artist
       artist(id: Int!, offset: Int = 0, limit: Int = 10): Artist
+
+      # 2.7 Mv
+      mv(id: Int!, br: Int = 128000): Mv
     }
     
   `,
@@ -151,6 +161,7 @@ module.exports = {
       search: (_, args) => args,
       top: (_, args) => args,
       artist: (_, args) => args,
+      mv: (_, args) => args,
       // (_, { k }) => getJSON(`/search?keywords=${k}`),
     },
     Music: {
@@ -184,6 +195,11 @@ module.exports = {
       album: async ({ id, offset, limit }) => getJSON(`/artist/album?id=${id}&offset=${offset}&limit=${limit}`),
       mv: async ({ id, offset, limit }) => getJSON(`/artist/mv?id=${id}&offset=${offset}&limit=${limit}`),
       simi: async ({ id, offset, limit }) => getJSON(`/artist/simi?id=${id}`),
+    },
+    Mv: {
+      single: async ({ id }) => getJSON(`/mv?id=${id}`),
+      simi: async ({ id, br }) => getJSON(`/mv/simi?id=${id}&br=${br}`),
+      url: async ({ id, br }) => getJSON(`/mv/url?id=${id}&br=${br}`),
     },
 
     // Type
