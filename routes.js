@@ -9,6 +9,7 @@
 */
 
 module.exports = {
+  "/v1/hi": "/hi",
   "/v1/login/cellphone": "/login/cellphone",
   "/v1/login": "/login",
   "/v1/login/refresh": "/login/refresh",
