@@ -97,6 +97,9 @@ module.exports = {
 
       # 2.7 Mv
       mv(id: Int!, br: Int = 128000): Mv
+
+      # 2.8 random hot
+      randomHot: JSON
     }
     
   `,
@@ -163,6 +166,23 @@ module.exports = {
       artist: (_, args) => args,
       mv: (_, args) => args,
       // (_, { k }) => getJSON(`/search?keywords=${k}`),
+
+      randomHot: async () => {
+        const id = '3778678';
+        const hot = (await getJSON(`/playlist/detail?id=${id}`) || {}).playlist;
+        const randomTrackId = parseInt(Math.random() * hot.tracks.length, 10);
+        const track = hot.tracks[randomTrackId];
+        const url = await getJSON(`/music/url?id=${track.id}`);
+        const full = {
+          id: track.id,
+          name: track.name,
+          author: track.ar && track.ar[0] && track.ar[0].name,
+          banner: track.al && track.al.picUrl,
+          url: url && url.code === 200 && url.data && url.data[0] && url.data[0].url,
+        };
+
+        return full;
+      },
     },
     Music: {
       async url({ id, br }) {
